@@ -1,6 +1,6 @@
 import 'package:bugsweeper/src/api/bugsweeper.dart';
 import 'package:bugsweeper/src/api/difficulty.dart';
-import 'package:bugsweeper/src/widgets/menu_button.dart';
+import 'package:bugsweeper/src/widgets/buttons.dart';
 import 'package:bugsweeper/src/widgets/toolbar.dart';
 import 'package:flutter/material.dart';
 
@@ -86,7 +86,7 @@ class SetupGamePage extends StatelessWidget {
                         startGameWithDifficulty(context, Difficulty.hard);
                       },
                     ),
-                    Divider(),
+                    const Divider(),
                     MenuButton(
                       child: Text(
                         'Back',

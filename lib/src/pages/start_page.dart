@@ -1,14 +1,8 @@
-import 'package:bugsweeper/src/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 
-class StartPage extends StatefulWidget {
+class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
 
-  @override
-  State<StartPage> createState() => _StartPageState();
-}
-
-class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;

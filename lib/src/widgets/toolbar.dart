@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Toolbar extends StatelessWidget {
   final Widget? child;
-  
+
   const Toolbar({Key? key, this.child}) : super(key: key);
 
   @override
@@ -94,14 +94,11 @@ class BugsweeperToolbarActions extends StatelessWidget {
   }
 
   Widget _resetButton() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Tooltip(
+    return Tooltip(
         message: 'Reset game',
         child: CustomIconButton(
           icon: const Icon(Icons.refresh, size: 16),
           onPressed: resetButtonPressed,
-        ),
       ),
     );
   }
