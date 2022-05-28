@@ -1,4 +1,5 @@
 import 'package:bugsweeper/src/api/bugsweeper.dart';
+import 'package:bugsweeper/src/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 
 class Toolbar extends StatelessWidget {
@@ -17,16 +18,12 @@ class Toolbar extends StatelessWidget {
           children: [
             Tooltip(
               message: 'Back to menu',
-              child: Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new, size: 16),
-                  splashRadius: 18,
-                  onPressed: () {
-                    if (Navigator.canPop(context)) return Navigator.pop(context);
-                    Navigator.pushReplacementNamed(context, '/');
-                  },
-                ),
+              child: CustomIconButton(
+                icon: const Icon(Icons.arrow_back_ios_new, size: 16),
+                onPressed: () {
+                  if (Navigator.canPop(context)) return Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, '/');
+                },
               ),
             ),
             if (child != null) child!,
@@ -100,13 +97,9 @@ class BugsweeperToolbarActions extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Tooltip(
         message: 'Reset game',
-        child: Material(
-          color: Colors.transparent,
-          child: IconButton(
-            icon: const Icon(Icons.refresh, size: 16),
-            splashRadius: 18,
-            onPressed: resetButtonPressed,
-          ),
+        child: CustomIconButton(
+          icon: const Icon(Icons.refresh, size: 16),
+          onPressed: resetButtonPressed,
         ),
       ),
     );
