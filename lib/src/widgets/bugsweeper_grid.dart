@@ -2,7 +2,7 @@
 import 'package:bugsweeper/src/api/types.dart';
 import 'package:flutter/material.dart';
 
-typedef GridChildBuilder = Widget Function(BuildContext context, Position pos, int index);
+typedef GridChildBuilder = Widget Function(BuildContext context, int index);
 const cellPadding = 6.0;
 
 class BugsweeperGrid extends StatefulWidget {
@@ -36,7 +36,7 @@ class _BugsweeperGridState extends State<BugsweeperGrid> {
       children: [
         SizedBox(
           width: widget.width * widget.cellSize + (cellPadding),
-          height: widget.height * widget.cellSize+ (cellPadding),
+          height: widget.height * widget.cellSize + (cellPadding),
           child: Wrap(
             children: [
               for (int i = 0; i < count; i++) _buildCell(i),
@@ -55,11 +55,10 @@ class _BugsweeperGridState extends State<BugsweeperGrid> {
     return Container(
       width: widget.cellSize - cellPadding,
       height: widget.cellSize - cellPadding,
-      margin: const EdgeInsets.all(cellPadding*0.5),
+      margin: const EdgeInsets.all(cellPadding * 0.5),
       child: Builder(
         builder: (context) => widget.gridChildBuilder(
           context,
-          pos,
           index,
         ),
       ),

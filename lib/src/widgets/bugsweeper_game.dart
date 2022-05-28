@@ -2,6 +2,7 @@ import 'package:bugsweeper/src/api/bugsweeper.dart';
 import 'package:bugsweeper/src/api/types.dart';
 import 'package:bugsweeper/src/dialogs/failed_dialog.dart';
 import 'package:bugsweeper/src/dialogs/victory_dialog.dart';
+import 'package:bugsweeper/src/widgets/bugsweeper_actions.dart';
 import 'package:bugsweeper/src/widgets/bugsweeper_grid.dart';
 import 'package:bugsweeper/src/widgets/toolbar.dart';
 import 'package:bugsweeper/src/widgets/field.dart';
@@ -31,6 +32,7 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
 
   @override
   Widget build(BuildContext context) {
+
     return IgnorePointer(
       ignoring: _disableInput,
       child: Container(
@@ -56,10 +58,9 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
                 child: BugsweeperGrid(
                   width: _bugsweeper.width,
                   height: _bugsweeper.height,
-                  cellSize: 40,
-                  gridChildBuilder: (BuildContext context, Position pos, index) {
+                  cellSize: cellSize,
+                  gridChildBuilder: (_, index) {
                     return _getWidgetForState(_gameState.elementAt(index));
-                    // return _getWidgetForPos(pos);
                   },
                 ),
               ),
@@ -73,18 +74,18 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
   Widget _getWidgetForState(FieldState state) {
     switch (state.type) {
       case FieldType.mine:
-        return _mineField(state.pos);
+        return _buildBugField(state.pos);
       case FieldType.flag:
-        return _flagField(state.pos);
+        return _buildFlagField(state.pos);
       case FieldType.open:
-        return _openedField(state.pos, state.mineNeighbors);
+        return _buildOpenField(state.pos, state.mineNeighbors);
       case FieldType.closed:
       default:
-        return _closedField(state.pos);
+        return _buildClosedField(state.pos);
     }
   }
 
-  Widget _closedField(Position pos) {
+  Widget _buildClosedField(Position pos) {
     return FieldWidget(
       onTap: () => _openField(pos),
       onLongPress: () => _toggleFlag(pos),
@@ -92,7 +93,7 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
     );
   }
 
-  Widget _openedField(Position pos, int mineNeighbors) {
+  Widget _buildOpenField(Position pos, int mineNeighbors) {
     return FieldWidget(
       decoration: fieldOpenDecoration,
       child: Center(
@@ -104,7 +105,7 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
     );
   }
 
-  Widget _mineField(Position pos) {
+  Widget _buildBugField(Position pos) {
     return FieldWidget(
       decoration: fieldBugDecoration,
       child: const Center(
@@ -113,7 +114,7 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
     );
   }
 
-  Widget _flagField(Position pos) {
+  Widget _buildFlagField(Position pos) {
     return FieldWidget(
       onLongPress: () => _toggleFlag(pos),
       decoration: fieldClosedDecoration,
