@@ -1,6 +1,6 @@
 # Bugsweeper
 
-A new Flutter project.
+Minesweeper written in Dart, and UI made with Flutter.
 
 ## Getting Started
 

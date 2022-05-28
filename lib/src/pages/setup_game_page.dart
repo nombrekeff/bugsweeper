@@ -1,8 +1,9 @@
-import 'package:bugsweeper/pages/game_page.dart';
 import 'package:bugsweeper/src/api/bugsweeper.dart';
 import 'package:bugsweeper/src/api/difficulty.dart';
 import 'package:bugsweeper/src/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
+
+import 'game_page.dart';
 
 class SetupGamePage extends StatelessWidget {
   final bugsweeper = Bugsweeper(

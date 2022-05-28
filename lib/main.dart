@@ -1,6 +1,6 @@
-import 'package:bugsweeper/pages/game_page.dart';
-import 'package:bugsweeper/pages/setup_game_page.dart';
-import 'package:bugsweeper/pages/start_page.dart';
+import 'package:bugsweeper/src/pages/game_page.dart';
+import 'package:bugsweeper/src/pages/setup_game_page.dart';
+import 'package:bugsweeper/src/pages/start_page.dart';
 import 'package:bugsweeper/src/api/difficulty.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: _buildTheme(),
       routes: {
