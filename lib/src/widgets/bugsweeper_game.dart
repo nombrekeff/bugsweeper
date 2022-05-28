@@ -1,18 +1,16 @@
-import 'package:bugsweeper/src/api/types.dart';
-import 'package:bugsweeper/src/widgets/bugsweeper_toolbar.dart';
-import 'package:bugsweeper/src/widgets/victory_dialog.dart';
-import 'package:flutter/material.dart';
 import 'package:bugsweeper/src/api/bugsweeper.dart';
-import 'package:bugsweeper/src/widgets/failed_dialog.dart';
+import 'package:bugsweeper/src/api/types.dart';
+import 'package:bugsweeper/src/dialogs/failed_dialog.dart';
+import 'package:bugsweeper/src/dialogs/victory_dialog.dart';
 import 'package:bugsweeper/src/widgets/bugsweeper_grid.dart';
+import 'package:bugsweeper/src/widgets/toolbar.dart';
+import 'package:bugsweeper/src/widgets/field.dart';
+import 'package:flutter/material.dart';
 
 class BugsweeperGame extends StatefulWidget {
-  final Bugsweeper bugsweeper;
+  const BugsweeperGame({Key? key, required this.bugsweeper}) : super(key: key);
 
-  const BugsweeperGame({
-    Key? key,
-    required this.bugsweeper,
-  }) : super(key: key);
+  final Bugsweeper bugsweeper;
 
   @override
   State<BugsweeperGame> createState() => _BugsweeperGameState();
@@ -22,71 +20,13 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
   final double cellSize = 40;
 
   Bugsweeper get _bugsweeper => widget.bugsweeper;
-  Set<FieldState> gameState = {};
+  Set<FieldState> _gameState = {};
   bool _disableInput = false;
 
   @override
   void initState() {
-    gameState = _bugsweeper.getState();
+    _gameState = _bugsweeper.getState();
     super.initState();
-  }
-
-  _render() {
-    setState(() {
-      gameState = _bugsweeper.getState();
-    });
-  }
-
-  _playAgain() {
-    _disableInput = false;
-    _bugsweeper.resetGame();
-    _render();
-  }
-
-  void _openField(Position pos) {
-    final result = _bugsweeper.openField(pos);
-
-    if (result == Result.lose) {
-      _mineExploded();
-    }
-    if (result == Result.victory) {
-      _victory();
-    }
-
-    if (result != Result.noop) _render();
-  }
-
-  void _toggleFlag(Position pos) {
-    _bugsweeper.toggleFlagField(pos);
-    _render();
-  }
-
-  void _mineExploded() async {
-    setState(() {
-      _disableInput = true;
-    });
-
-    Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      FailedDialog.open(context).then((replay) {
-        if (replay == true) {
-          setState(_playAgain);
-        }
-      });
-    });
-  }
-
-  void _victory() async {
-    setState(() {
-      _disableInput = true;
-    });
-
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      VictoryDialog.open(context).then((replay) {
-        if (replay == true) {
-          setState(_playAgain);
-        }
-      });
-    });
   }
 
   @override
@@ -113,7 +53,7 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
                   height: _bugsweeper.height,
                   cellSize: 40,
                   gridChildBuilder: (BuildContext context, Position pos, index) {
-                    return _getWidgetForState(gameState.elementAt(index));
+                    return _getWidgetForState(_gameState.elementAt(index));
                     // return _getWidgetForPos(pos);
                   },
                 ),
@@ -140,28 +80,16 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
   }
 
   Widget _closedField(Position pos) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => _openField(pos),
-        onLongPress: () => _toggleFlag(pos),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.circular(6),
-          ),
-        ),
-      ),
+    return FieldWidget(
+      onTap: () => _openField(pos),
+      onLongPress: () => _toggleFlag(pos),
+      decoration: fieldClosedDecoration,
     );
   }
 
   Widget _openedField(Position pos, int mineNeighbors) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: Colors.grey[400] as Color),
-      ),
+    return FieldWidget(
+      decoration: fieldOpenDecoration,
       child: Center(
         child: Text(
           mineNeighbors > 0 ? mineNeighbors.toString() : '',
@@ -172,33 +100,62 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
   }
 
   Widget _mineField(Position pos) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.red.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: Colors.red[400] as Color),
-      ),
+    return FieldWidget(
+      decoration: fieldBugDecoration,
       child: const Center(
-        child: Icon(Icons.bug_report),
+        child: Icon(Icons.bug_report, color: Colors.red),
       ),
     );
   }
 
   Widget _flagField(Position pos) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTertiaryTapUp: (_) => _toggleFlag(pos),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: const Center(
-            child: Icon(Icons.flag),
-          ),
-        ),
+    return FieldWidget(
+      onLongPress: () => _toggleFlag(pos),
+      decoration: fieldClosedDecoration,
+      child: const Center(
+        child: Icon(Icons.flag),
       ),
     );
+  }
+
+  void _render() {
+    setState(() {
+      _gameState = _bugsweeper.getState();
+    });
+  }
+
+  void _playAgain() {
+    _disableInput = false;
+    _bugsweeper.resetGame();
+    _render();
+  }
+
+  void _openField(Position pos) {
+    final result = _bugsweeper.openField(pos);
+
+    if (result == Result.lose) _showFailDialog();
+    if (result == Result.victory) _showVictoryDialog();
+    if (result != Result.noop) _render();
+  }
+
+  void _toggleFlag(Position pos) {
+    _bugsweeper.toggleFlagField(pos);
+    _render();
+  }
+
+  void _showFailDialog() async {
+    setState(() => _disableInput = true);
+
+    final bool? replay = await FailedDialog.open(context);
+
+    if (replay == true) setState(_playAgain);
+  }
+
+  void _showVictoryDialog() async {
+    setState(() => _disableInput = true);
+
+    final bool? replay = await VictoryDialog.open(context);
+
+    if (replay == true) setState(_playAgain);
   }
 }

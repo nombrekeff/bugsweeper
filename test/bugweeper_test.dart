@@ -88,9 +88,11 @@ void main() {
 
       ms.bugFields.clear();
       ms.bugFields.add(pos);
+      ms.bugFields.add(pos2);
 
       expect(ms.openField(pos), Result.lose);
-      expect(ms.openField(pos2), Result.op);
+      expect(ms.isOpenField(pos), true);
+      expect(ms.isOpenField(pos2), true);
     });
   });
 

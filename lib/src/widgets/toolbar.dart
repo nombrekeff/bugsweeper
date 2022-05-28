@@ -1,9 +1,9 @@
 import 'package:bugsweeper/src/api/bugsweeper.dart';
 import 'package:flutter/material.dart';
 
-class BugsweeperToolbar extends StatelessWidget {
-  final Bugsweeper bugsweeper;
-  const BugsweeperToolbar({Key? key, required this.bugsweeper}) : super(key: key);
+class Toolbar extends StatelessWidget {
+  final Widget? child;
+  const Toolbar({Key? key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,22 @@ class BugsweeperToolbar extends StatelessWidget {
                 ),
               ),
             ),
-            _counters(),
+            if (child != null) child!,
           ],
         ),
       ),
+    );
+  }
+}
+
+class BugsweeperToolbar extends StatelessWidget {
+  final Bugsweeper bugsweeper;
+  const BugsweeperToolbar({Key? key, required this.bugsweeper}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Toolbar(
+      child: _counters(),
     );
   }
 
@@ -69,10 +81,11 @@ class BugsweeperToolbar extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(width: 12),
         const Tooltip(
           message: 'Click to uncover a cell, long click to flag a cell',
           child: Icon(
-            Icons.question_mark,
+            Icons.help,
             size: 16,
           ),
         )
