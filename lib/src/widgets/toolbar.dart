@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class Toolbar extends StatelessWidget {
   final Widget? child;
+  
   const Toolbar({Key? key, this.child}) : super(key: key);
 
   @override
