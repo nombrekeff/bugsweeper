@@ -43,7 +43,12 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            BugsweeperToolbar(bugsweeper: _bugsweeper),
+            Toolbar(
+              child: BugsweeperToolbarActions(
+                bugsweeper: _bugsweeper,
+                resetButtonPressed: _playAgain,
+              ),
+            ),
             const SizedBox(height: 8),
             Expanded(
               child: FittedBox(

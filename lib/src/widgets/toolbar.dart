@@ -37,48 +37,37 @@ class Toolbar extends StatelessWidget {
   }
 }
 
-class BugsweeperToolbar extends StatelessWidget {
+class BugsweeperToolbarActions extends StatelessWidget {
+  const BugsweeperToolbarActions({
+    Key? key,
+    required this.bugsweeper,
+    this.resetButtonPressed,
+  }) : super(key: key);
+
+  final VoidCallback? resetButtonPressed;
   final Bugsweeper bugsweeper;
-  const BugsweeperToolbar({Key? key, required this.bugsweeper}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Toolbar(
-      child: _counters(),
-    );
-  }
-
-  Widget _counters() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        if (resetButtonPressed != null) _resetButton(),
         Tooltip(
           message: 'Flags placed',
-          child: Chip(
-            backgroundColor: Colors.white.withOpacity(0.8),
-            label: Row(
-              children: [
-                const Icon(Icons.flag, size: 16),
-                const SizedBox(width: 4),
-                Text(bugsweeper.flagCount.toString()),
-              ],
-            ),
+          child: _makeChip(
+            Icons.flag,
+            bugsweeper.flagCount.toString(),
           ),
         ),
         const SizedBox(width: 12),
         Tooltip(
           message: 'Bugs in this game',
-          child: Chip(
-            backgroundColor: Colors.white.withOpacity(0.8),
-            label: Row(
-              children: [
-                const Icon(Icons.bug_report, size: 16),
-                const SizedBox(width: 4),
-                Text(bugsweeper.bugCount.toString()),
-              ],
-            ),
+          child: _makeChip(
+            Icons.bug_report,
+            bugsweeper.bugCount.toString(),
           ),
         ),
         const SizedBox(width: 12),
@@ -90,6 +79,36 @@ class BugsweeperToolbar extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  Widget _makeChip(IconData icon, String text) {
+    return Chip(
+      backgroundColor: Colors.white.withOpacity(0.8),
+      label: Row(
+        children: [
+          Icon(icon, size: 16),
+          const SizedBox(width: 4),
+          Text(text),
+        ],
+      ),
+    );
+  }
+
+  Widget _resetButton() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Tooltip(
+        message: 'Reset game',
+        child: Material(
+          color: Colors.transparent,
+          child: IconButton(
+            icon: const Icon(Icons.refresh, size: 16),
+            splashRadius: 18,
+            onPressed: resetButtonPressed,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ ThemeData _buildTheme() {
 
   return baseTheme.copyWith(
     scaffoldBackgroundColor: Colors.grey[100],
-    primaryColor: Colors.amber[800],
+    primaryColor: Colors.amber,
     textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
     appBarTheme: baseTheme.appBarTheme.copyWith(
       iconTheme: baseTheme.appBarTheme.iconTheme?.copyWith(
@@ -45,8 +45,8 @@ ThemeData _buildTheme() {
       ),
     ),
     colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: Colors.amber[800],
-      secondary: Colors.amber[800],
+      primary: Colors.amber,
+      secondary: Colors.amber,
     ),
   );
 }

@@ -86,6 +86,16 @@ class SetupGamePage extends StatelessWidget {
                         startGameWithDifficulty(context, Difficulty.hard);
                       },
                     ),
+                    Divider(),
+                    MenuButton(
+                      child: Text(
+                        'Back',
+                        style: textTheme.bodyMedium,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ],
                 ),
               ),

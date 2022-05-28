@@ -18,10 +18,6 @@ class _StartPageState extends State<StartPage> {
       body: Center(
         child: Container(
           width: 200,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-          ),
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -32,28 +28,14 @@ class _StartPageState extends State<StartPage> {
                     ?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey[800]),
               ),
               const Divider(),
-              MenuButton(
+              ElevatedButton(
                 child: Text(
                   'Play',
                   style: textTheme.subtitle1,
                 ),
-                onTap: () {
+                onPressed: () {
                   Navigator.of(context).pushNamed('/setup_game');
                 },
-              ),
-              MenuButton(
-                child: Text(
-                  'About',
-                  style: textTheme.subtitle1,
-                ),
-                onTap: () {},
-              ),
-              MenuButton(
-                child: Text(
-                  'Exit',
-                  style: textTheme.subtitle1,
-                ),
-                onTap: () {},
               ),
             ],
           ),
