@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class StartPage extends StatelessWidget {
+  static String routeName = '/';
+  
   const StartPage({Key? key}) : super(key: key);
 
   @override

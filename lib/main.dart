@@ -1,5 +1,5 @@
 import 'package:bugsweeper/src/pages/game_page.dart';
-import 'package:bugsweeper/src/pages/setup_game_page.dart';
+import 'package:bugsweeper/src/pages/setup_page.dart';
 import 'package:bugsweeper/src/pages/start_page.dart';
 import 'package:bugsweeper/src/api/difficulty.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +19,12 @@ class MyApp extends StatelessWidget {
       title: 'Bugsweeper',
       theme: _buildTheme(),
       routes: {
-        '/': (c) => const StartPage(),
-        '/setup_game': (c) => SetupGamePage(),
-        '/play': (context) {
+        StartPage.routeName: (c) => const StartPage(),
+        SetupPage.routeName: (c) => SetupPage(),
+        GamePage.routeName: (context) {
           final settings = ModalRoute.of(context)!.settings;
           final difficulty = settings.arguments as Difficulty?;
-          
+
           return GamePage(difficulty: difficulty ?? Difficulty.easy);
         },
       },

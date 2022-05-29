@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 
 import 'game_page.dart';
 
-class SetupGamePage extends StatelessWidget {
+class SetupPage extends StatelessWidget {
+  static String routeName = '/setup_game';
+
   final bugsweeper = Bugsweeper(
     width: 10,
     height: 10,
     bugCount: 10,
   );
 
-  SetupGamePage({Key? key}) : super(key: key);
+  SetupPage({Key? key}) : super(key: key);
 
   startGameWithDifficulty(BuildContext context, Difficulty difficulty) {
     Navigator.pushNamed(
