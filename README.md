@@ -1,10 +1,18 @@
 # Bugsweeper
 
-Minesweeper written in Dart, and UI made with Flutter.
+Minesweeper written in Dart, UI made with Flutter. It's built to run in web for now, but is somewhat prepared to be run in Android or iOS too with minimal work.
+
+Includes:
+* Minesweeper game logic
+* Flutter UI & Navigation 
+* Unit Tests
+
+Missing:
+* Widget / e2e tests
+* Animations & effects
+* Game timer
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
