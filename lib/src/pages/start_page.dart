@@ -1,8 +1,9 @@
+import 'package:bugsweeper/src/pages/setup_page.dart';
 import 'package:flutter/material.dart';
 
 class StartPage extends StatelessWidget {
   static String routeName = '/';
-  
+
   const StartPage({Key? key}) : super(key: key);
 
   @override
@@ -30,7 +31,7 @@ class StartPage extends StatelessWidget {
                   style: textTheme.subtitle1,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/setup_game');
+                  Navigator.of(context).pushNamed(SetupPage.routeName);
                 },
               ),
             ],

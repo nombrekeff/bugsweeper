@@ -1,3 +1,4 @@
+import 'package:bugsweeper/src/pages/start_page.dart';
 import 'package:flutter/material.dart';
 
 class VictoryDialog extends StatelessWidget {
@@ -23,7 +24,7 @@ class VictoryDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/'));
+            Navigator.popUntil(context, ModalRoute.withName(StartPage.routeName));
           },
           child: const Text('EXIT'),
         ),
