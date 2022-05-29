@@ -3,7 +3,7 @@ import 'package:bugsweeper/src/api/types.dart';
 import 'package:bugsweeper/src/dialogs/failed_dialog.dart';
 import 'package:bugsweeper/src/dialogs/victory_dialog.dart';
 import 'package:bugsweeper/src/widgets/bugsweeper_actions.dart';
-import 'package:bugsweeper/src/widgets/bugsweeper_grid.dart';
+import 'package:bugsweeper/src/widgets/grid_2d.dart';
 import 'package:bugsweeper/src/widgets/toolbar.dart';
 import 'package:bugsweeper/src/widgets/field.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
             Expanded(
               child: FittedBox(
                 fit: BoxFit.scaleDown,
-                child: BugsweeperGrid(
+                child: Grid2D(
                   width: _bugsweeper.width,
                   height: _bugsweeper.height,
                   cellSize: cellSize,
