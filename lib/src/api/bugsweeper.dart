@@ -18,10 +18,10 @@ class Bugsweeper {
   }) {
     assert(width >= 0, '"width" must be greater than 0');
     assert(height >= 0, '"height" must be greater than 0');
-    assert(bugCount >= 0, '"mineCount" must be greater than 0');
+    assert(bugCount >= 0, '"bugCount" must be greater than 0');
     assert(
       bugCount < (width * height),
-      'mineCount "$bugCount" cannot exceed the number of fields (${width * height})',
+      'bugCount "$bugCount" cannot exceed the number of fields (${width * height})',
     );
 
     _generateBugs();
@@ -66,7 +66,7 @@ class Bugsweeper {
     return neighbors;
   }
 
-  /// Returns the current state of the game
+  /// Returns the current state for each field in the current game
   Set<FieldState> getState() {
     Set<FieldState> state = {};
 
@@ -74,7 +74,7 @@ class Bugsweeper {
       for (int j = 0; j < height; j++) {
         final pos = Position(i, j);
         var type = FieldType.closed;
-        var mineNeighborsCount = 0;
+        var bugNeighborsCount = 0;
 
         if (isFlagField(pos)) {
           type = FieldType.flag;
@@ -82,10 +82,10 @@ class Bugsweeper {
 
         if (isOpenField(pos)) {
           if (isBugField(pos)) {
-            type = FieldType.mine;
+            type = FieldType.bug;
           } else {
             type = FieldType.open;
-            mineNeighborsCount = getBugsFromSet(getNeighbors(pos)).length;
+            bugNeighborsCount = getBugsFromSet(getNeighbors(pos)).length;
           }
         }
 
@@ -93,7 +93,7 @@ class Bugsweeper {
           FieldState(
             pos: pos,
             type: type,
-            mineNeighbors: mineNeighborsCount,
+            bugNeighbors: bugNeighborsCount,
           ),
         );
       }
@@ -116,7 +116,7 @@ class Bugsweeper {
     if (isBugField(pos)) {
       openFields.add(pos);
 
-      // once a mine is uncovered, open the rest of the mines
+      // once a bug is uncovered, open the rest of the bugs
       for (final neighbor in bugFields) {
         openFields.add(neighbor);
       }

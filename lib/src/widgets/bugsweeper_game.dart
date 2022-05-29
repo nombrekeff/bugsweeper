@@ -73,12 +73,12 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
 
   Widget _getWidgetForState(FieldState state) {
     switch (state.type) {
-      case FieldType.mine:
+      case FieldType.bug:
         return _buildBugField(state.pos);
       case FieldType.flag:
         return _buildFlagField(state.pos);
       case FieldType.open:
-        return _buildOpenField(state.pos, state.mineNeighbors);
+        return _buildOpenField(state.pos, state.bugNeighbors);
       case FieldType.closed:
       default:
         return _buildClosedField(state.pos);
@@ -93,12 +93,12 @@ class _BugsweeperGameState extends State<BugsweeperGame> {
     );
   }
 
-  Widget _buildOpenField(Position pos, int mineNeighbors) {
+  Widget _buildOpenField(Position pos, int bugNeighbors) {
     return FieldWidget(
       decoration: fieldOpenDecoration,
       child: Center(
         child: Text(
-          mineNeighbors > 0 ? mineNeighbors.toString() : '',
+          bugNeighbors > 0 ? bugNeighbors.toString() : '',
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),

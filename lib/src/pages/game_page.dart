@@ -13,7 +13,7 @@ class GamePage extends StatelessWidget {
   })  : bugsweeper = Bugsweeper(
           width: difficulty.width,
           height: difficulty.height,
-          bugCount: difficulty.mineCount,
+          bugCount: difficulty.bugCount,
         ),
         super(key: key);
 

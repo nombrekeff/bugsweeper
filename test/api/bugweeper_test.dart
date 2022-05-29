@@ -195,11 +195,11 @@ void main() {
   test('Bugsweeper.resetGame works', () {
     final ms = Bugsweeper(height: 10, width: 10, bugCount: 10);
     ms.openField(Position(0, 1));
-    final mineFieldsBefore = ms.bugFields.where((element) => true).toSet();
+    final bugFieldsBefore = ms.bugFields.where((element) => true).toSet();
 
     ms.resetGame();
 
-    expect(mineFieldsBefore, isNot(equals(ms.bugFields)));
+    expect(bugFieldsBefore, isNot(equals(ms.bugFields)));
     expect(ms.openFields.length, 0);
   });
 }

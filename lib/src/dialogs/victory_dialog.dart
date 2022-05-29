@@ -18,7 +18,7 @@ class VictoryDialog extends StatelessWidget {
     return AlertDialog(
       title: const Text('You won the game!'),
       content: const Text(
-        'You have found all the mines!',
+        'You have found all the bugs!',
       ),
       actions: [
         TextButton(

@@ -1,6 +1,6 @@
 /// Represents the type of a field
 enum FieldType {
-  mine,
+  bug,
   flag,
   open,
   closed,
@@ -24,12 +24,12 @@ enum Result {
 class FieldState {
   final FieldType type;
   final Position pos;
-  final int mineNeighbors;
+  final int bugNeighbors;
 
   FieldState({
     required this.type,
     required this.pos,
-    this.mineNeighbors = 0,
+    this.bugNeighbors = 0,
   });
 }
 

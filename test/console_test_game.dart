@@ -6,14 +6,14 @@ class ConsoleDisplay {
   final String openFieldEmoji = '⬜';
   final String flagFieldEmoji = '🚩';
 
-  final Bugsweeper _mineweeper;
+  final Bugsweeper _bugweeper;
 
-  ConsoleDisplay(this._mineweeper);
+  ConsoleDisplay(this._bugweeper);
 
   render() {
-    for (int i = 0; i < _mineweeper.width; i++) {
+    for (int i = 0; i < _bugweeper.width; i++) {
       String row = '';
-      for (int j = 0; j < _mineweeper.height; j++) {
+      for (int j = 0; j < _bugweeper.height; j++) {
         row += '$closedFieldEmoji ';
       }
       // ignore: avoid_print
