@@ -11,6 +11,7 @@ Missing:
 * Widget / e2e tests
 * Animations & effects
 * Game timer
+* Localizations
 
 ## Getting Started
 
