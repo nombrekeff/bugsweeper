@@ -1,10 +1,10 @@
-# Bugsweeper
+# [Bugsweeper](https://flutter-bugsweeper.netlify.app/)
 
 Minesweeper written in Dart, UI made with Flutter. It's built to run in web for now, but is somewhat prepared to be run in Android or iOS too with minimal work.
 
 Includes:
 * Minesweeper game logic
-* Flutter UI & Navigation 
+* Basic Flutter UI 
 * Unit Tests
 
 Missing:
